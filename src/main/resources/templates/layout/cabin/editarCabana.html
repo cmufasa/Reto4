@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Editar Cabaña</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <section th:fragment="editarCabana">
+            <form th:action="@{/cabana/updatecabin}" th:object="${cabin}"
+                  method="POST" class="was-validated">
+                <input type="hidden" name="id" th:field="*{id}"/>
+                <section th:replace="layout/cabin/botonesEditar :: botonesEditar"></section>
+                <div id="details">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4>[[#{accion.editar}]]</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="brand">[[#{cabana.tipo}]]</label>
+                                            <input type="text" class="form-control" name="brand" 
+                                                   required="true" th:field="*{brand}"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="rooms">[[#{cabana.rooms}]]</label>
+                                            <input type="number" class="form-control" name="rooms" 
+                                                   required="true" th:field="*{rooms}" step="any"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="category" th:text="#{cabana.categoria}">[[#{cabana.categoria}]]</label>
+                                            <select class="browser-default custom-select" name="category" id="category" title="Seleccione una categoría">
+                                                <option value="" disabled="disabled" selected>-- Seleccionar categoria --</option>
+                                                <option th:each="category : ${categorys}" th:value="${category.id}" th:text="${category.name}"/>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="name">[[#{cabana.nombre}]]</label>
+                                            <input type="text" class="form-control" name="name" 
+                                                   required="true" th:field="*{name}"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="description">[[#{cabana.descripcion}]]</label>
+                                            <input type="text" class="form-control" name="description" 
+                                                   required="true" th:field="*{description}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </body>
+</html>

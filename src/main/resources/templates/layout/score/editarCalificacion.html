@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Editar calificación</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <section th:fragment="editarCalificacion">
+            <form th:action="@{/califica/updatescore}" th:object="${score}"
+                  method="POST" class="was-validated">
+                <input type="hidden" name="id" th:field="*{id}"/>
+                <section th:replace="layout/score/botonesEditar :: botonesEditar"></section>
+                <div id="details">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4>[[#{accion.editar}]]</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="cabin">[[#{califica.valor}]]</label>
+                                            <select class="browser-default custom-select" type="text" name="valueScore" id="selectValueScore" th:field="*{valueScore}">
+                                                <option selected value = 6>Seleccione una calificación...</option>
+                                                <option value = 0>0</option>
+                                                <option value = 1>1</option>
+                                                <option value = 2>2</option>
+                                                <option value = 3>3</option>
+                                                <option value = 4>4</option>
+                                                <option value = 5>5</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="msgText">[[#{califica.mensaje}]]</label>
+                                            <input type="text" class="form-control" name="msgText" 
+                                                   required="true" th:field="*{msgText}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </body>
+</html>

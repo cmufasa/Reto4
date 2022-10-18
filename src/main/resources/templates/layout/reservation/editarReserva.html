@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Editar Reserva</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <section th:fragment="editarReserva">
+            <form th:action="@{/reserva/updatereservation}" th:object="${reservation}"
+                  method="POST" class="was-validated">
+                <input type="hidden" name="idReservation" th:field="*{idReservation}"/>
+                <section th:replace="layout/reservation/botonesEditar :: botonesEditar"></section>
+                <div id="details">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4>[[#{accion.editar}]]</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="startDate">[[#{reserva.inicio}]]</label>
+                                            <input type="date" class="form-control" name="startDate" 
+                                                   required="true" th:field="*{startDate}" format="yyyy-mm-dd"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="devolutionDate">[[#{reserva.devolucion}]]</label>
+                                            <input type="date" class="form-control" name="devolutionDate" 
+                                                   required="true" th:field="*{devolutionDate}" format="yyyy-mm-dd"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="client">[[#{reserva.cliente}]]</label>
+                                            <select class="browser-default custom-select" name="client" id="client" title="Seleccione un cliente">
+                                                <option value="" disabled="disabled" selected>-- Seleccionar cliente --</option>
+                                                <option th:each="client : ${clients}" th:value="${client.idClient}" th:text="${client.name}"/>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="cabin">[[#{reserva.cabana}]]</label>
+                                            <select class="browser-default custom-select" name="cabin" id="cabin" title="Seleccione una cabaña">
+                                                <option value="" disabled="disabled" selected>-- Seleccionar cabaña --</option>
+                                                <option th:each="cabin : ${cabins}" th:value="${cabin.id}" th:text="${cabin.name}"/>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="cabin">[[#{reserva.estado}]]</label>
+                                            <select class="browser-default custom-select" type="text" name="status" id="selectStatus" th:field="*{status}">
+                                                <option selected value = "0">Seleccione un estado...</option>
+                                                <option value = "programmed">Programado</option>
+                                                <option value = "cancelled">Cancelado</option>
+                                                <option value = "completed">Realizado</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </body>
+</html>

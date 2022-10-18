@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Editar Mensaje</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <section th:fragment="editarMensaje">
+            <form th:action="@{/mensaje/updatemessage}" th:object="${message}"
+                  method="POST" class="was-validated">
+                <input type="hidden" name="idMessage" th:field="*{idMessage}"/>
+                <section th:replace="layout/message/botonesEditar :: botonesEditar"></section>
+                <div id="details">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4>[[#{accion.editar}]]</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="messagetext">[[#{mensaje.mensaje}]]</label>
+                                            <input type="text" class="form-control" name="messagetext" 
+                                                   required="true" th:field="*{messageText}"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="client" th:text="#{mensaje.cliente}">Cliente</label>
+                                            <select class="browser-default custom-select" name="client" id="client" title="Seleccione un cliente">
+                                                <option value="" disabled="disabled" selected>-- Seleccionar cliente --</option>
+                                                <option th:each="client : ${clients}" th:value="${client.idClient}" th:text="${client.name}"/>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="cabin" th:text="#{mensaje.cabana}">Cabaña</label>
+                                            <select class="browser-default custom-select" name="cabin" id="cabin" title="Seleccione una cabaña">
+                                                <option value="" disabled="disabled" selected>-- Seleccionar cabaña --</option>
+                                                <option th:each="cabin : ${cabins}" th:value="${cabin.id}" th:text="${cabin.name}"/>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </body>
+</html>

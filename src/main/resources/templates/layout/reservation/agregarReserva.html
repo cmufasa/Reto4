@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Agregar reserva</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <section th:fragment="agregarReserva">
+            <div id="agregarReserva" class="modal fade">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header bg-info text-white">
+                            <h5 class="modal-title" th:text="#{accion.agregar}">Agregar reserva</h5>
+                            <button class="close" data-dismiss="modal">
+                                <span>&times;</span>
+                            </button>
+                        </div> 
+                        <form th:action="@{reserva/savereservation}" th:object="${reservation}"
+                              method="POST" class="was-validated">
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="startDate" th:text="#{reserva.inicio}">Fecha Entrada</label>
+                                    <input type="date" class="form-control" name="startDate" required="true" format="yyyy-mm-dd">
+                                </div>
+                                <div class="form-group">
+                                    <label for="devolutionDate" th:text="#{reserva.devolucion}">Fecha Salida</label>
+                                    <input type="date" class="form-control" name="devolutionDate" required="true" format="yyyy-mm-dd">
+                                </div>
+                                <div class="form-group">
+                                    <label for="client" th:text="#{reserva.cliente}">Cliente</label>
+                                    <select class="browser-default custom-select" name="client" id="client" title="Seleccione un cliente">
+                                        <option value="" disabled="disabled" selected>-- Seleccionar cliente --</option>
+                                        <option th:each="client : ${clients}" th:value="${client.idClient}" th:text="${client.name}"/>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cabin" th:text="#{reserva.cabana}">Cabaña</label>
+                                    <select class="browser-default custom-select" name="cabin" id="cabin" title="Seleccione una cabaña">
+                                        <option value="" disabled="disabled" selected>-- Seleccionar cabaña --</option>
+                                        <option th:each="cabin : ${cabins}" th:value="${cabin.id}" th:text="${cabin.name}"/>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cabin" th:text="#{reserva.estado}">Estado</label>
+                                    <select class="browser-default custom-select" type="text" name="status" id="selectStatus">
+                                        <option selected value = "0">Seleccione un estado...</option>
+                                        <option value = "Programmed">Programado</option>
+                                        <option value = "Cancelled">Cancelado</option>
+                                        <option value = "Completed">Realizado</option>
+                                    </select>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" type="submit" th:text="#{accion.guardar}">Guardar</button>
+                                </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Editar Cliente</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <section th:fragment="editarCliente">
+            <form th:action="@{/cliente/updateclient}" th:object="${client}"
+                  method="POST" class="was-validated">
+                <input type="hidden" name="idClient" th:field="*{idClient}"/>
+                <section th:replace="layout/client/botonesEditar :: botonesEditar"></section>
+                <div id="details">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4>[[#{accion.editar}]]</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="name">[[#{cliente.nombre}]]</label>
+                                            <input type="text" class="form-control" name="name" 
+                                                   required="true" th:field="*{name}"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">[[#{cliente.email}]]</label>
+                                            <input type="email" class="form-control" name="email" 
+                                                   required="true" th:field="*{email}"/>
+                                        </div>
+                                         <div class="form-group">
+                                            <label for="password">[[#{cliente.password}]]</label>
+                                            <input type="password" class="form-control" name="password" 
+                                                   required="true" th:field="*{password}"/>
+                                        </div>
+                                         <div class="form-group">
+                                            <label for="age">[[#{cliente.edad}]]</label>
+                                            <input type="number" class="form-control" name="age" 
+                                                   required="true" th:field="*{age}" step="any"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </body>
+</html>

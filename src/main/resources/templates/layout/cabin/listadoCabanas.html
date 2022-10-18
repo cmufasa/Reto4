@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <title>Listado Cabañas</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <section th:fragment="listadoCabanas" id="cabanas">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>[[#{cabana.titulo-lista}]]</h4>
+                            </div>
+                            <div th:if="${cabins != null and !cabins.empty}">
+                                <table class="table table-stryped">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>#</th>
+                                            <th th:text="#{cabana.tipo}">Tipo</th>
+                                            <th th:text="#{cabana.rooms}">Habitación</th>
+                                            <th th:text="#{cabana.nombre}">Nombre</th>
+                                            <th th:text="#{cabana.descripcion}">Descripción</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="cabin : ${cabins}">
+                                            <td>[[${cabin.id}]]</td>
+                                            <td>[[${cabin.brand}]]</td>
+                                            <td>[[${new java.text.DecimalFormat('$#,##0.00').format(cabin.rooms)}]]</td>
+                                            <td>[[${cabin.name}]]</td>
+                                            <td>[[${cabin.description}]]</td>
+                                            <td>
+                                                <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/cabana/searchcabin/} + ${cabin.id}"
+                                                   class="btn btn-secondary">
+                                                    <i class="fas fa-angle-double-right"></i> [[#{accion.editar}]]
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/cabana/deletecabin/} + ${cabin.id}"
+                                                   class="btn btn-dark">
+                                                    <i class="fas fa-angle-double-right"></i> [[#{accion.eliminar}]]
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="text-center p-2" th:if="${cabins == null or cabins.empty}">
+                                <span th:text="#{cabana.lista-vacia}">Lista vacía</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>
